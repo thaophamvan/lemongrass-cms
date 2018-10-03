@@ -4,15 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var exphbs  = require('express-handlebars');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./server/routes/index');
+var users = require('./server/routes/users');
 
 var app = express();
 
+// views folder
+app.set('views', './server/views/');
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.engine('handlebars', exphbs({
+  layoutsDir: "server/views/layouts/",
+  defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 if (process.env.NODE_ENV === 'development') {
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -54,4 +61,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+// set app port
+app.set('port', process.env.PORT || 8080)
+
+app.listen(app.get('port'), function () {
+  console.log('Express started on http://localhost:' +
+    app.get('port') + '; press Ctrl-C to terminate.')
+})
