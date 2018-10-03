@@ -1,0 +1,14 @@
+<!-- Default form subscription -->
+<form class="border border-light p-5" method="post" action="/users/{{{id}}}/edit">
+
+    <p class="h4 mb-4">New User</p>
+
+    {{> user-fields}}
+
+    <input type="hidden" name="_rev" value="{{{this._rev}}}"">
+
+    <!-- Sign in button -->
+    <button class="btn btn-info" type="submit">Submit</button>
+
+</form>
+<!-- Default form subscription -->
