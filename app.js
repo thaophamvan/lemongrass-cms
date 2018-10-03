@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
 
+var dbUtils = require('./server/lib/db')
 var index = require('./server/routes/index');
 var users = require('./server/routes/users');
 
@@ -17,6 +18,7 @@ app.set('views', './server/views/');
 // view engine setup
 app.engine('handlebars', exphbs({
   layoutsDir: "server/views/layouts/",
+  partialsDir: "server/views/partials/",
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
@@ -64,7 +66,12 @@ app.use(function(err, req, res, next) {
 // set app port
 app.set('port', process.env.PORT || 8080)
 
-app.listen(app.get('port'), function () {
-  console.log('Express started on http://localhost:' +
-    app.get('port') + '; press Ctrl-C to terminate.')
+// connect to the database
+dbUtils.connect(db => {
+  db.init().then(() => {
+    app.listen(app.get('port'), () => {
+      console.log('Express started on http://localhost:' +
+        app.get('port') + '; press Ctrl-C to terminate.')
+    })
+  })
 })

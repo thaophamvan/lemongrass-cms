@@ -16,6 +16,7 @@
   "author": "niteco",
   "license": "ISC",
   "dependencies": {
+    "@cloudant/cloudant": "^2.4.0",
     "async": "^2.6.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",

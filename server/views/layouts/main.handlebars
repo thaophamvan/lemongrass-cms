@@ -10,6 +10,14 @@
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 </head>
 <body>
-  {{{body}}}
+  <div class="container-fluid">
+    <div class="row">
+      {{> sidebar }}
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        {{{body}}}
+      </main>
+    </div>
+  </div>
 </body>
 </html>
