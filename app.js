@@ -10,6 +10,7 @@ const dbUtils = require('./server/lib/db')
 const index = require('./server/routes/index');
 const users = require('./server/routes/users');
 const drinkType = require('./server/routes/drinkType');
+const drinkTemperature = require('./server/routes/drinkTemperature');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/drink-type', drinkType);
+app.use('/drink-temperature', drinkTemperature);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
