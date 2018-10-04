@@ -67,11 +67,9 @@ app.use(function(err, req, res, next) {
 app.set('port', process.env.PORT || 8080)
 
 // connect to the database
-dbUtils.connect(db => {
-  db.init().then(() => {
-    app.listen(app.get('port'), () => {
-      console.log('Express started on http://localhost:' +
-        app.get('port') + '; press Ctrl-C to terminate.')
-    })
+dbUtils.connect(() => {
+  app.listen(app.get('port'), () => {
+    console.log('Express started on http://localhost:' +
+      app.get('port') + '; press Ctrl-C to terminate.')
   })
 })

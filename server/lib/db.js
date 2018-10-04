@@ -1,5 +1,10 @@
+var cloudantDb = require('./cloudant-db')
+
 var state = {
-  db: null
+  db: {
+    users: null,
+    drinkType: null
+  }
 }
 
 exports.connect = done => {
@@ -12,9 +17,12 @@ exports.connect = done => {
     console.error(e);
   }
 
-  state.db = require('./cloudant-db')(cloudantCredentials)
+  state.db.users = cloudantDb('users', cloudantCredentials)
+  state.db.drinkType = cloudantDb('drink_type', cloudantCredentials)
 
-  done(state.db)
+  state.db.users.init().then(() =>
+    state.db.drinkType.init().then(() => done())
+  )
 }
 
-exports.get = () => state.db
+exports.get = (dbName) => state.db[dbName]

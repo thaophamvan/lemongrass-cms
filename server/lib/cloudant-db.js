@@ -1,7 +1,7 @@
 const Cloudant = require('@cloudant/cloudant');
 
-function DB(credentials) {
-  const DB_NAME = 'users';
+function DB(dbName, credentials) {
+  const DB_NAME = dbName;
   const cloudant = Cloudant({
     url: credentials.url,
     plugin: 'retry',
@@ -142,6 +142,6 @@ function DB(credentials) {
   };
 }
 
-module.exports = function(credentials) {
-  return new DB(credentials);
+module.exports = function(dbName, credentials) {
+  return new DB(dbName, credentials);
 }
