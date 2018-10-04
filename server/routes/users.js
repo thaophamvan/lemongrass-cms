@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var dbUtils = require('../lib/db')
+const express = require('express');
+const router = express.Router();
+const dbUtils = require('../lib/db')
 
 router.get('/', (req, res) => {
-  var db = dbUtils.get('users')
+  let db = dbUtils.get('users')
 
   db.search().then(users => {
     res.render('users', {
@@ -19,9 +19,9 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  var db = dbUtils.get('users')
+  let db = dbUtils.get('users')
 
-  var user = {
+  let user = {
     name: req.body.name,
     description: req.body.description
   }
@@ -34,7 +34,7 @@ router.post('/new', (req, res) => {
 })
 
 router.get('/:id/delete', (req, res) => {
-  var db = dbUtils.get('users')
+  let db = dbUtils.get('users')
 
   db.delete(req.params.id).then(todo => {
     res.redirect('/users')
@@ -44,7 +44,7 @@ router.get('/:id/delete', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
-  var db = dbUtils.get('users')
+  let db = dbUtils.get('users')
 
   db.read(req.params.id).then(user => {
     res.render('users/edit', user);
@@ -54,9 +54,9 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.post('/:id/edit', (req, res) => {
-  var db = dbUtils.get('users')
+  let db = dbUtils.get('users')
 
-  var user = {
+  let user = {
     id: req.params.id,
     name: req.body.name,
     description: req.body.description,

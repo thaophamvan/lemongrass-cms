@@ -1,9 +1,9 @@
-var cloudantDb = require('./cloudant-db')
+const cloudantDb = require('./cloudant-db')
 
-var state = {
+const state = {
   db: {
     users: null,
-    drinkType: null
+    drink_type: null
   }
 }
 
@@ -17,12 +17,13 @@ exports.connect = done => {
     console.error(e);
   }
 
-  state.db.users = cloudantDb('users', cloudantCredentials)
-  state.db.drinkType = cloudantDb('drink_type', cloudantCredentials)
+  let dbNames = Object.keys(state.db)
 
-  state.db.users.init().then(() =>
-    state.db.drinkType.init().then(() => done())
-  )
+  dbNames.forEach(dbName => state.db[dbName] = cloudantDb(dbName, cloudantCredentials))
+
+  let dbInits = Object.values(state.db).map(dbInstance => dbInstance.init())
+
+  Promise.all(dbInits).then(() => done())
 }
 
 exports.get = (dbName) => state.db[dbName]

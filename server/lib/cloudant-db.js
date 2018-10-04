@@ -76,10 +76,7 @@ function DB(dbName, credentials) {
         } else {
           const newItem = {
             id: savedItem.id,
-            _rev: savedItem. rev,
-            title: item.title,
-            completed: item.completed,
-            order: item.order
+            _rev: savedItem.rev
           };
           console.log('created');
           resolve(newItem);
