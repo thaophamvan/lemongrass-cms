@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-  res.render('users-new')
+  res.render('users/new')
 })
 
 router.post('/new', (req, res) => {
@@ -47,7 +47,7 @@ router.get('/:id/edit', (req, res) => {
   var db = dbUtils.get()
 
   db.read(req.params.id).then(user => {
-    res.render('users-edit', user);
+    res.render('users/edit', user);
   }).catch(err => {
     res.status(500).send({ error: err });
   });
