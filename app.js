@@ -8,7 +8,6 @@ const exphbs  = require('express-handlebars');
 
 const dbUtils = require('./server/lib/db')
 const index = require('./server/routes/index');
-const users = require('./server/routes/users');
 const drinkType = require('./server/routes/drinkType');
 const drinkTemperature = require('./server/routes/drinkTemperature');
 
@@ -45,7 +44,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/drink-type', drinkType);
 app.use('/drink-temperature', drinkTemperature);
 

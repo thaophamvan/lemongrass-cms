@@ -2,7 +2,6 @@ const cloudantDb = require('./cloudant-db')
 
 const state = {
   db: {
-    users: null,
     drink_type: null,
     drink_temperature: null,
   }
