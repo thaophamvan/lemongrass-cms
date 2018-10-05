@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const dbUtils = require('../lib/db')
 
 router.get('/', (req, res) => {
@@ -10,8 +10,8 @@ router.get('/', (req, res) => {
       drinkType: drinkType
     })
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.get('/new', (req, res) => {
@@ -30,31 +30,31 @@ router.post('/new', (req, res) => {
     volume: req.body.volume,
   }
 
-  db.create(drinkType).then(drinkType => {
-    res.redirect('/drink-type');
+  db.create(drinkType).then(() => {
+    res.redirect('/drink-type')
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.get('/:id/delete', (req, res) => {
   let db = dbUtils.get('drink_type')
 
-  db.delete(req.params.id).then(todo => {
+  db.delete(req.params.id).then(() => {
     res.redirect('/drink-type')
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.get('/:id/edit', (req, res) => {
   let db = dbUtils.get('drink_type')
 
   db.read(req.params.id).then(drinkType => {
-    res.render('drinkType/edit', drinkType);
+    res.render('drinkType/edit', drinkType)
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.post('/:id/edit', (req, res) => {
@@ -71,11 +71,11 @@ router.post('/:id/edit', (req, res) => {
     volume: req.body.volume,
   }
 
-  db.update(drinkType.id, drinkType).then(todo => {
+  db.update(drinkType.id, drinkType).then(() => {
     res.redirect('/drink-type')
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 module.exports = router

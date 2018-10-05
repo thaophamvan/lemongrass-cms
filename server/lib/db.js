@@ -11,10 +11,10 @@ exports.connect = done => {
   // load cloudant config
   let cloudantCredentials = null
   try {
-    cloudantCredentials = require('../../config/cloudant-config.json');
-    console.log("Loaded cloudant config", cloudantCredentials);
+    cloudantCredentials = require('../../config/cloudant-config.json')
+    console.log('Loaded cloudant config', cloudantCredentials)
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
 
   let dbNames = Object.keys(state.db)

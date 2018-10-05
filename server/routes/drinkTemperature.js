@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const dbUtils = require('../lib/db')
 
 router.get('/', (req, res) => {
@@ -10,8 +10,8 @@ router.get('/', (req, res) => {
       drinkTemperature: drinkTemperature
     })
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.get('/new', (req, res) => {
@@ -27,31 +27,31 @@ router.post('/new', (req, res) => {
     desired_temperature: req.body.desired_temperature,
   }
 
-  db.create(drinkTemperature).then(drinkTemperature => {
-    res.redirect('/drink-temperature');
+  db.create(drinkTemperature).then(() => {
+    res.redirect('/drink-temperature')
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.get('/:id/delete', (req, res) => {
   let db = dbUtils.get('drink_temperature')
 
-  db.delete(req.params.id).then(todo => {
+  db.delete(req.params.id).then(() => {
     res.redirect('/drink-temperature')
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.get('/:id/edit', (req, res) => {
   let db = dbUtils.get('drink_temperature')
 
   db.read(req.params.id).then(drinkTemperature => {
-    res.render('drinkTemperature/edit', drinkTemperature);
+    res.render('drinkTemperature/edit', drinkTemperature)
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 router.post('/:id/edit', (req, res) => {
@@ -65,11 +65,11 @@ router.post('/:id/edit', (req, res) => {
     desired_temperature: req.body.desired_temperature,
   }
 
-  db.update(drinkTemperature.id, drinkTemperature).then(todo => {
+  db.update(drinkTemperature.id, drinkTemperature).then(() => {
     res.redirect('/drink-temperature')
   }).catch(err => {
-    res.status(500).send({ error: err });
-  });
+    res.status(500).send({ error: err })
+  })
 })
 
 module.exports = router
