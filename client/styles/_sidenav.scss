@@ -1,0 +1,87 @@
+.lg_sidenav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid $LG-SIDENAV-BORDER;
+  background-color: $LG-SIDENAV-BG;
+
+  .lg_sidenav__logo {
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+  }
+
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    position: relative;
+    display: block;
+    padding: 0;
+    padding-left: 20px;
+
+    color: #424242;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+
+    font-size: .8rem;
+    font-weight: 400;
+    height: 36px;
+    line-height: 36px;
+
+    &:hover {
+      background-color: rgba($LG-BLACK, .05);
+    }
+  }
+
+  .fa {
+    margin-right: 13px;
+    font-size: .8rem;
+  }
+
+  .lg_sidenav__rotate-icon.fa-angle-up {
+    position: absolute;
+    right: 0;
+    top: .8rem;
+    margin-right: 1.25rem;
+  }
+
+  .lg_sidenav__collapsible-body a {
+    font-size: .78rem;
+    height: 28px;
+    line-height: 28px;
+    background-color: rgba($LG-SIDENAV-COLLAPSE-LINK,.15);
+    padding-left: 47px;
+
+    &:hover {
+      color: #4285f4;
+      background-color: rgba($LG-BLACK, .05);
+    }
+  }
+
+  .lg_sidenav__search-form {
+    border-top: 1px solid rgba($LG_SIDENAV_SEARCH-FORM-BORDER, .3);
+
+    input {
+      border: none;
+      border-bottom: 1px solid rgba($LG_SIDENAV_SEARCH-FORM-BORDER, .3);
+      background-color: transparent;
+      padding: 4px 0 4px 1.88rem;
+
+      &:focus {
+        background-color: transparent;
+        box-shadow: none;
+        outline: 0;
+        border-color: rgba($LG_SIDENAV_SEARCH-FORM-BORDER, .3);
+      }
+    }
+  }
+}

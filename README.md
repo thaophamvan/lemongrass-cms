@@ -18,6 +18,11 @@ const state = {
 npm install
 ```
 
+# Compile scss (just for this time)
+```
+npm run scss
+```
+
 # Start dev server
 ```
 npm start
