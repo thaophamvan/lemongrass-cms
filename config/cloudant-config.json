@@ -1,0 +1,12 @@
+{
+  "apikey": "RIMZXTGBRcIABifU0hTcgAZrBS5Me3IOzBX4HrCyGYL0",
+  "host": "925c939f-1e95-494c-be6b-da8433bc2a31-bluemix.cloudant.com",
+  "iam_apikey_description": "Auto generated apikey during resource-key operation for Instance - crn:v1:bluemix:public:cloudantnosqldb:us-south:a/7d5a61d6e163486d8c5200ff52fdccbd:184f2b5c-15da-446e-8023-c5201ca2512b::",
+  "iam_apikey_name": "auto-generated-apikey-ea2ff6ee-29f5-431b-838f-1fc77f4546d7",
+  "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+  "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/7d5a61d6e163486d8c5200ff52fdccbd::serviceid:ServiceId-257fc658-04c2-4f74-8d82-f6be99cbbb47",
+  "password": "640e9249b910fc6540a57b99223921a85a087b9fc023d1d8f89a51c81f0d16cc",
+  "port": 443,
+  "url": "https://925c939f-1e95-494c-be6b-da8433bc2a31-bluemix:640e9249b910fc6540a57b99223921a85a087b9fc023d1d8f89a51c81f0d16cc@925c939f-1e95-494c-be6b-da8433bc2a31-bluemix.cloudant.com",
+  "username": "925c939f-1e95-494c-be6b-da8433bc2a31-bluemix"
+}
