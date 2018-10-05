@@ -12,14 +12,13 @@
   <link rel="stylesheet" type="text/css" href="/site.css">
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      {{> navbar }}
+    {{> navbar }}
 
-      <main role="main" class="col-md-10 col-sm-9 offset-sm-2 pt-3">
+    <main role="main" class="lg_main">
+      <div class="container-fluid">
         {{{body}}}
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
 </body>
 </html>

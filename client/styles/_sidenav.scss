@@ -9,6 +9,7 @@
   overflow-y: auto;
   border-right: 1px solid $LG-SIDENAV-BORDER;
   background-color: $LG-SIDENAV-BG;
+  width: 240px;
 
   .lg_sidenav__logo {
     padding-top: 1.8rem;
@@ -47,11 +48,14 @@
     font-size: .8rem;
   }
 
-  .lg_sidenav__rotate-icon.fa-angle-up {
-    position: absolute;
-    right: 0;
-    top: .8rem;
-    margin-right: 1.25rem;
+  .lg_sidenav__rotate-icon {
+    &.fa-angle-down,
+    &.fa-angle-up {
+      position: absolute;
+      right: 0;
+      top: .8rem;
+      margin-right: 1.25rem;
+    }
   }
 
   .lg_sidenav__collapsible-body a {
