@@ -4,10 +4,10 @@ const state = {
   db: {
     drink_type: null,
     drink_temperature: null,
-  }
+  },
 }
 
-exports.connect = done => {
+exports.connect = (done) => {
   // load cloudant config
   let cloudantCredentials = null
   try {
@@ -17,13 +17,15 @@ exports.connect = done => {
     console.error(e)
   }
 
-  let dbNames = Object.keys(state.db)
+  const dbNames = Object.keys(state.db)
 
-  dbNames.forEach(dbName => state.db[dbName] = cloudantDb(dbName, cloudantCredentials))
+  dbNames.forEach((dbName) => {
+    state.db[dbName] = cloudantDb(dbName, cloudantCredentials)
+  })
 
-  let dbInits = Object.values(state.db).map(dbInstance => dbInstance.init())
+  const dbInits = Object.values(state.db).map(dbInstance => dbInstance.init())
 
   Promise.all(dbInits).then(() => done())
 }
 
-exports.get = (dbName) => state.db[dbName]
+exports.get = dbName => state.db[dbName]

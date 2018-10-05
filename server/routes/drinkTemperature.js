@@ -1,15 +1,16 @@
 const express = require('express')
+
 const router = express.Router()
 const dbUtils = require('../lib/db')
 
 router.get('/', (req, res) => {
-  let db = dbUtils.get('drink_temperature')
+  const db = dbUtils.get('drink_temperature')
 
-  db.search().then(drinkTemperature => {
+  db.search().then((drinkTemperature) => {
     res.render('drinkTemperature', {
-      drinkTemperature: drinkTemperature
+      drinkTemperature,
     })
-  }).catch(err => {
+  }).catch((err) => {
     res.status(500).send({ error: err })
   })
 })
@@ -19,9 +20,9 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  let db = dbUtils.get('drink_temperature')
+  const db = dbUtils.get('drink_temperature')
 
-  let drinkTemperature = {
+  const drinkTemperature = {
     name: req.body.name,
     description: req.body.description,
     desired_temperature: req.body.desired_temperature,
@@ -29,35 +30,35 @@ router.post('/new', (req, res) => {
 
   db.create(drinkTemperature).then(() => {
     res.redirect('/drink-temperature')
-  }).catch(err => {
+  }).catch((err) => {
     res.status(500).send({ error: err })
   })
 })
 
 router.get('/:id/delete', (req, res) => {
-  let db = dbUtils.get('drink_temperature')
+  const db = dbUtils.get('drink_temperature')
 
   db.delete(req.params.id).then(() => {
     res.redirect('/drink-temperature')
-  }).catch(err => {
+  }).catch((err) => {
     res.status(500).send({ error: err })
   })
 })
 
 router.get('/:id/edit', (req, res) => {
-  let db = dbUtils.get('drink_temperature')
+  const db = dbUtils.get('drink_temperature')
 
-  db.read(req.params.id).then(drinkTemperature => {
+  db.read(req.params.id).then((drinkTemperature) => {
     res.render('drinkTemperature/edit', drinkTemperature)
-  }).catch(err => {
+  }).catch((err) => {
     res.status(500).send({ error: err })
   })
 })
 
 router.post('/:id/edit', (req, res) => {
-  let db = dbUtils.get('drink_temperature')
+  const db = dbUtils.get('drink_temperature')
 
-  let drinkTemperature = {
+  const drinkTemperature = {
     id: req.params.id,
     _rev: req.body._rev,
     name: req.body.name,
@@ -67,7 +68,7 @@ router.post('/:id/edit', (req, res) => {
 
   db.update(drinkTemperature.id, drinkTemperature).then(() => {
     res.redirect('/drink-temperature')
-  }).catch(err => {
+  }).catch((err) => {
     res.status(500).send({ error: err })
   })
 })

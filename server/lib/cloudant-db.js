@@ -6,66 +6,60 @@ function DB(dbName, credentials) {
     url: credentials.url,
     plugin: 'retry',
     retryAttempts: 10,
-    retryTimeout: 500
+    retryTimeout: 500,
   })
 
   const self = this
   let db
 
-  self.type = function() {
+  self.type = function () {
     return 'Cloudant'
   }
 
-  self.init = () => {
-    return new Promise((resolve, reject) => {
-      cloudant.db.get(DB_NAME, (err) => {
-        if (!err) {
-          console.log('Database', DB_NAME, 'already exists')
-          db = cloudant.db.use(DB_NAME)
-          resolve()
-        } else {
-          console.log('Database', DB_NAME, 'does not exists, creating it')
-          cloudant.db.create(DB_NAME, (err) => {
-            if (err) {
-              reject(err)
-            } else {
-              db = cloudant.db.use(DB_NAME)
-              resolve()
-            }
-          })
-        }
-      })
+  self.init = () => new Promise((resolve, reject) => {
+    cloudant.db.get(DB_NAME, (err) => {
+      if (!err) {
+        console.log('Database', DB_NAME, 'already exists')
+        db = cloudant.db.use(DB_NAME)
+        resolve()
+      } else {
+        console.log('Database', DB_NAME, 'does not exists, creating it')
+        cloudant.db.create(DB_NAME, (err) => {
+          if (err) {
+            reject(err)
+          } else {
+            db = cloudant.db.use(DB_NAME)
+            resolve()
+          }
+        })
+      }
     })
-  }
+  })
 
-  self.count = () => {
-    return new Promise((resolve, reject) => {
-      db.list((err, result) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(result.total_rows)
-        }
-      })
+  self.count = () => new Promise((resolve, reject) => {
+    db.list((err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result.total_rows)
+      }
     })
-  }
+  })
 
-  self.search = () => {
-    return new Promise((resolve, reject) => {
-      db.list({ include_docs: true }, (err, result) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(result.rows.map(row => {
-            const doc = row.doc
-            doc.id = doc._id
-            delete doc._id
-            return doc
-          }))
-        }
-      })
+  self.search = () => new Promise((resolve, reject) => {
+    db.list({ include_docs: true }, (err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result.rows.map((row) => {
+          const doc = row.doc
+          doc.id = doc._id
+          delete doc._id
+          return doc
+        }))
+      }
     })
-  }
+  })
 
   self.create = (item) => {
     console.log('create', item)
@@ -76,7 +70,7 @@ function DB(dbName, credentials) {
         } else {
           const newItem = {
             id: savedItem.id,
-            _rev: savedItem.rev
+            _rev: savedItem.rev,
           }
           console.log('created')
           resolve(newItem)
@@ -123,7 +117,7 @@ function DB(dbName, credentials) {
   self.delete = (id) => {
     console.log('delete', id)
     return new Promise((resolve, reject) => {
-      self.read(id).then(item => {
+      self.read(id).then((item) => {
         db.destroy(item.id, item._rev, (err) => { // (err, body)
           if (err) {
             reject(err)
@@ -132,13 +126,13 @@ function DB(dbName, credentials) {
             resolve(item)
           }
         })
-      }).catch(err => {
+      }).catch((err) => {
         reject(err)
       })
     })
   }
 }
 
-module.exports = function(dbName, credentials) {
+module.exports = function (dbName, credentials) {
   return new DB(dbName, credentials)
 }
