@@ -1,5 +1,5 @@
 # Cloudant config
-Paste your cloudant credentials at `server/lib/clodant-db.js`
+Paste your cloudant credentials at `config/cloudant-config.json`
 
 If you want to add more db, just open `server/lib/db.js` and modify just like this
 ```
