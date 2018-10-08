@@ -7,22 +7,10 @@ const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
 
 const dbUtils = require('./server/lib/db')
-const index = require('./server/routes/index')
 const drinkType = require('./server/routes/drinkType')
 const drinkTemperature = require('./server/routes/drinkTemperature')
 
 const app = express()
-
-// views folder
-app.set('views', './server/views/')
-
-// view engine setup
-app.engine('handlebars', exphbs({
-  layoutsDir: 'server/views/layouts/',
-  partialsDir: 'server/views/partials/',
-  defaultLayout: 'main',
-}))
-app.set('view engine', 'handlebars')
 
 if (process.env.NODE_ENV === 'development') {
   const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -43,9 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', index)
-app.use('/drink-type', drinkType)
-app.use('/drink-temperature', drinkTemperature)
+app.use('/api/drink-type', drinkType)
+app.use('/api/drink-temperature', drinkTemperature)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -62,7 +49,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
+  res.end()
 })
 
 // set app port

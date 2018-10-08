@@ -1,152 +1,111 @@
-const FileSystem = require('fs');
-const path = require('path');
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ReplaceHashWebpackPlugin = require('replace-hash-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-const vendors = ['react', 'react-dom', 'redux', 'react-router-dom', 'react-redux', 'moment', 'redux-thunk', 'axios',
-  'react-router-redux'];
-const clientFolder = path.join(__dirname, 'client');
+module.exports = (env, argv) => {
+  // @see https://github.com/webpack/webpack/issues/6460#issuecomment-364286147
+  const PROD_MODE = argv.mode === 'production'
+  console.log(argv.mode)
 
-const processTemplate = (fileName, processSwitch) => {
-  const ascxTemplate = FileSystem.readFileSync(path.join(__dirname, '../UserControls/Shared/', fileName), 'utf8');
-  const htmlOutput = processSwitch(ascxTemplate);
-  FileSystem.writeFileSync(path.join(__dirname, '../dist/', fileName), htmlOutput);
-}
-
-const isProd = process.env.NODE_ENV.trim() === 'production';
-
-const webpackConfig = {
-  entry: {
-    bundle: ['babel-polyfill', path.join(clientFolder, 'app.js')],
-    vendor: vendors,
-    styles: ['../css/main.scss'], //, '../css/aktivera.scss'
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: [/node_modules/],
-        query: {
-          cacheDirectory: 'babel_cache',
-          presets: ['es2015', 'stage-0', 'react'],
-        },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.scss$/,
-        exclude: [clientFolder],
-        include: [path.join(__dirname, '..', 'css')],
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              sourceMap: !isProd,
-              minimize: isProd ?
-                {
-                  autoprefixer: {
-                    add: true,
-                    remove: true,
-                  }
-                } : false,
-            }
-          }, {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: !isProd,
-            }
-          }]
-        }),
-      },
-      {
-        test: /\.svg$/,
-        exclude: /node_modules\/(?!(trumbowyg)\/).*/,
-        loader: 'svg-inline-loader',
-      },
-      {
-        test: /jquery[\\\/]src[\\\/]selector\.js$/,
-        loader: 'amd-define-factory-patcher-loader',
-      },
-    ],
-  },
-  plugins: [
-    new CleanWebpackPlugin(
-      [
-        path.resolve(__dirname, '../dist/js/'),
-        path.resolve(__dirname, '../dist/css/'),
-      ],
-      {
-        root: path.resolve(__dirname, '../'),
-        verbose: true,
-        dry: false,
-      }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /sv|en/),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV.trim()),
-      },
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'vendor.[hash].js',
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.ProvidePlugin({
-      $: 'jquery/src/core',
-      jQuery: 'jquery/src/core',
-    }),
-    new ExtractTextPlugin(
-      {
-        filename: '../css/[name].[contenthash].css',
-        allChunks: true,
+  const plugins = [
+    new HtmlWebPackPlugin({
+      template: "./client/html/index.html",
+      filename: "./index.html",
+      // @see https://github.com/jantimon/html-webpack-plugin#options
+      // @see https://github.com/kangax/html-minifier#options-quick-reference
+      // @see https://github.com/jantimon/html-webpack-plugin/issues/363#issue-162800498
+      minify: {
+        collapseWhitespace: true,
+        preserveLineBreaks: PROD_MODE ? false : true
       }
-    ),
-    function () {
-      this.plugin('done', function (statsData) {
-        const stats = statsData.toJson();
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].[hash].css",
+      chunkFilename: "[id].[hash].css"
+    }),
+    // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
+    new webpack.SourceMapDevToolPlugin({
+      filename: "[file].map"
+    })
+  ]
 
-        if (!stats.errors.length) {
-          console.log(stats.assetsByChunkName);
+  // clean build folder before build
+  // @see https://github.com/johnagan/clean-webpack-plugin#usage
+  if (PROD_MODE) {
+    plugins.push(new CleanWebpackPlugin(['public']))
+  }
 
-          processTemplate('FooterResourcesLoader.ascx', (htmlOutput) => {
-            return htmlOutput
-              .replace(/bundle\.js/i, stats.assetsByChunkName.bundle)
-              .replace(/vendor\.js/i, stats.assetsByChunkName.vendor);
-          });
-
-          processTemplate('HeaderResourcesLoader.ascx', (htmlOutput) => {
-            const fileName = stats.assetsByChunkName.styles[1].replace(/\.\.\/css\//i, '');
-            return htmlOutput.replace(/main\.css/i, fileName);
-          });
-        }
-      });
+  return {
+    entry: "./client/index.js", 
+    output: {
+      path: path.resolve(__dirname, "public"),
+      filename: "[name].[hash].js",
     },
-  ],
-  output: {
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname, '../dist/js/'),
-    chunkFilename: '[name].[hash].chunk.js',
-    publicPath: '/dist/js/',
-  },
-};
-
-
-if (isProd) {
-  const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-  webpackConfig.plugins.push(new UglifyJSPlugin());
-} else {
-  webpackConfig.devtool = 'inline-source-map';
+    // @see https://webpack.js.org/configuration/devtool/
+    // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
+    // devtool: 'cheap-module-eval-source-map',
+    optimization: {
+      // @see https://github.com/webpack-contrib/mini-css-extract-plugin#minimizing-for-production
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true // set to true if you want JS source maps
+        }),
+        // @see https://github.com/NMFR/optimize-css-assets-webpack-plugin/issues/71#issuecomment-412143710
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: {
+            map: true
+          }
+        })
+      ]
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: "babel-loader"
+        },
+        {
+          test: /\.scss$/,
+          exclude: /\.module.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        },
+        {
+          test: /\.module.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                modules: true,
+                localIdentName: '[folder]__[local]--[hash:base64:5]'
+              }
+            },
+            "sass-loader"
+          ]
+        }
+      ]
+    },
+    plugins: plugins
+  }
 }
-
-module.exports = webpackConfig;
