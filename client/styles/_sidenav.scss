@@ -1,4 +1,6 @@
-.lg_sidenav {
+$block: ".lg_side-nav";
+
+#{$block} {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -11,18 +13,21 @@
   background-color: $LG-SIDENAV-BG;
   width: 240px;
 
-  .lg_sidenav__logo {
-    padding-top: 1.8rem;
-    padding-bottom: 1.8rem;
-  }
-
-  ul, li {
+  .lg_side-nav__nav,
+  .lg_side-nav__menu,
+  .lg_side-nav__item,
+  .lg_side-nav__sub-menu {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  a {
+  .lg_side-nav__logo {
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+  }
+
+  .lg_side-nav__link {
     position: relative;
     display: block;
     padding: 0;
@@ -48,7 +53,7 @@
     font-size: .8rem;
   }
 
-  .lg_sidenav__rotate-icon {
+  .lg_side-nav__rotate-icon {
     &.fa-angle-down,
     &.fa-angle-up {
       position: absolute;
@@ -58,7 +63,7 @@
     }
   }
 
-  .lg_sidenav__collapsible-body a {
+  .lg_side-nav__collapsible-body .lg_side-nav__link {
     font-size: .78rem;
     height: 28px;
     line-height: 28px;
@@ -71,20 +76,20 @@
     }
   }
 
-  .lg_sidenav__search-form {
-    border-top: 1px solid rgba($LG_SIDENAV_SEARCH-FORM-BORDER, .3);
+  .lg_side-nav__search-form {
+    border-top: 1px solid rgba($LG_SIDENAV-SEARCH-FORM-BORDER, .3);
 
-    input {
+    .lg_side-nav__input {
       border: none;
-      border-bottom: 1px solid rgba($LG_SIDENAV_SEARCH-FORM-BORDER, .3);
+      border-bottom: 1px solid rgba($LG_SIDENAV-SEARCH-FORM-BORDER, .3);
       background-color: transparent;
-      padding: 4px 0 4px 1.88rem;
+      padding: 4px 0 4px 30px;
 
       &:focus {
         background-color: transparent;
         box-shadow: none;
         outline: 0;
-        border-color: rgba($LG_SIDENAV_SEARCH-FORM-BORDER, .3);
+        border-color: rgba($LG_SIDENAV-SEARCH-FORM-BORDER, .3);
       }
     }
   }
