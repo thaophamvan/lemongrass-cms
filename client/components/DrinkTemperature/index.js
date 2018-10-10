@@ -1,10 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import DrinkTemperatureRow from '../DrinkTemperatureRow'
 
-const DrinkTemperature = () => (
+const DrinkTemperature = (props) => (
   <div>
     <h1>Drink Temperature</h1>
 
-    <a href="/drink-temperature/new" className="btn btn-primary btn-md">New</a>
+    <Link to="/drink-temperature/new" className="btn btn-primary btn-md">New</Link>
 
     <div className="table-responsive">
       <table className="table table-striped table-sm">
@@ -18,16 +20,9 @@ const DrinkTemperature = () => (
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>description</td>
-            <td>desired_temperature</td>
-            <td>
-              <a className="btn btn-secondary btn-sm" href="/drink-temperature/id/edit">Edit</a>
-              <a className="btn btn-danger btn-sm" href="/drink-temperature/id/delete">Delete</a>
-            </td>
-          </tr>
+          {props.data.map(item =>
+            <DrinkTemperatureRow key={item.id} {...item} deleteRow={props.deleteRow}/>
+          )}
         </tbody>
       </table>
     </div>

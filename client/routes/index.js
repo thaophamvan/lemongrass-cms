@@ -3,7 +3,9 @@ import Home from '../components/Home'
 import DrinkTypeRoute from '../containers/DrinkType'
 import DrinkTypeNewRoute from '../containers/DrinkTypeNew'
 import DrinkTypeEditRoute from '../containers/DrinkTypeEdit'
-import DrinkTemperature from '../components/DrinkTemperature'
+import DrinkTemperatureRoute from '../containers/DrinkTemperature'
+import DrinkTemperatureNewRoute from '../containers/DrinkTemperatureNew'
+import DrinkTemperatureEditRoute from '../containers/DrinkTemperatureEdit'
 
 export default [
   {
@@ -29,8 +31,19 @@ export default [
       },
       {
         path: '/drink-temperature',
-        component: DrinkTemperature,
+        component: DrinkTemperatureRoute,
+        exact: true
       },
+      {
+        path: '/drink-temperature/new',
+        component: DrinkTemperatureNewRoute,
+        exact: true
+      },
+      {
+        path: '/drink-temperature/:id/edit',
+        component: DrinkTemperatureEditRoute,
+        exact: true
+      }
     ]
   }
 ]
