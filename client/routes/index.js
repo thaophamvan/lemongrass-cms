@@ -1,6 +1,8 @@
 import DefaultLayout from '../layouts/DefaultLayout'
 import Home from '../components/Home'
-import DrinkType from '../components/DrinkType'
+import DrinkTypeRoute from '../containers/DrinkType'
+import DrinkTypeNewRoute from '../containers/DrinkTypeNew'
+import DrinkTypeEditRoute from '../containers/DrinkTypeEdit'
 import DrinkTemperature from '../components/DrinkTemperature'
 
 export default [
@@ -14,13 +16,20 @@ export default [
       },
       {
         path: '/drink-type',
-        component: DrinkType,
+        component: DrinkTypeRoute,
         exact: true
+      },
+      {
+        path: '/drink-type/new',
+        component: DrinkTypeNewRoute,
+      },
+      {
+        path: '/drink-type/:id/edit',
+        component: DrinkTypeEditRoute
       },
       {
         path: '/drink-temperature',
         component: DrinkTemperature,
-        exact: true
       },
     ]
   }

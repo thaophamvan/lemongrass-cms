@@ -30,19 +30,16 @@ module.exports = (env, argv) => {
     // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
     new webpack.SourceMapDevToolPlugin({
       filename: "[file].map"
-    })
+    }),
+    // @see https://github.com/johnagan/clean-webpack-plugin#usage
+    new CleanWebpackPlugin(['public'])
   ]
-
-  // clean build folder before build
-  // @see https://github.com/johnagan/clean-webpack-plugin#usage
-  if (PROD_MODE) {
-    plugins.push(new CleanWebpackPlugin(['public']))
-  }
 
   return {
     entry: "./client/index.js", 
     output: {
       path: path.resolve(__dirname, "public"),
+      publicPath: '/',
       filename: "[name].[hash].js",
     },
     // @see https://webpack.js.org/configuration/devtool/

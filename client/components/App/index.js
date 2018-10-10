@@ -2,9 +2,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { Route } from 'react-router-dom'
-import Home from './Home'
-import DrinkType from './DrinkType'
-import DrinkTemperature from './DrinkTemperature'
 
 const App = props => (
   <Provider store={props.store}>
