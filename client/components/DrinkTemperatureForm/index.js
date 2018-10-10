@@ -27,7 +27,7 @@ const DrinkTemperatureForm = (props) => {
         <input key={field} type="text" className="form-control mb-4" placeholder={field} name={field} onChange={changeFieldValue.bind(this, field)} value={props[field]}/>
       )}
 
-      <button className="btn btn-info" type="submit">Submit</button>
+      <button className="btn btn-info btn-md" type="submit">Submit</button>
 
     </form>
   )

@@ -18,12 +18,24 @@ const state = {
 npm install
 ```
 
-# Compile scss (just for this time)
+# Build react scripts
+
+## Development
 ```
-npm run scss
+npm run build:dev
 ```
 
-# Start dev server
+## Production
+```
+npm run build
+```
+
+## Watching for development
+```
+npm run watch
+```
+
+# Start server
 ```
 npm start
 ```

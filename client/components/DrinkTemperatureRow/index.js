@@ -10,13 +10,13 @@ const DrinkTemperatureRow = (props) => {
 
   return (
     <tr>
-      <td>{props.id}</td>
-      <td>{props.name}</td>
-      <td>{props.description}</td>
-      <td>{props.desired_temperature}</td>
+      <td className="align-middle">{props.id}</td>
+      <td className="align-middle">{props.name}</td>
+      <td className="align-middle">{props.description}</td>
+      <td className="align-middle">{props.desired_temperature}</td>
       <td>
-        <Link to={`/drink-temperature/${props.id}/edit`} className="btn btn-secondary btn-sm">Edit</Link>
-        <button className="btn btn-danger btn-sm" onClick={deleteRow}>Delete</button>
+        <Link to={`/drink-temperature/${props.id}/edit`} className="btn btn-secondary btn-sm mr-2">Edit</Link>
+        <button className="btn btn-danger btn-sm m-0" onClick={deleteRow}>Delete</button>
       </td>
     </tr>
   )
