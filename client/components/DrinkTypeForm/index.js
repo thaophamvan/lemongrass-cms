@@ -24,7 +24,7 @@ const DrinkTypeForm = (props) => {
   return (
     <form onSubmit={submitForm} className="border border-light p-5">
 
-      <p className="h4 mb-4">New Drink Type</p>
+      <p className="h4 mb-4">{props.title}</p>
 
       {fields.map(field =>
         <input key={field} type="text" className="form-control mb-4" placeholder={field} name={field} onChange={changeFieldValue.bind(this, field)} value={props[field]}/>

@@ -16,6 +16,7 @@ class DrinkTypeNewContainer extends React.Component {
     return (
       <DrinkTypeForm
         {...this.props}
+        title="New drink type"
         updateData={this.props.updateDrinkTypeData}
         submitData={this.props.createDrinkType}
       />

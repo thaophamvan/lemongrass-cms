@@ -18,6 +18,7 @@ class DrinkTypeEditContainer extends React.Component {
     return (
       <DrinkTypeForm
         {...this.props}
+        title={`Edit ${this.props.name}`}
         updateData={this.props.updateDrinkTypeData}
         submitData={this.props.updateDrinkType}
       />
