@@ -10,9 +10,11 @@ const App = props => (
   <Provider store={props.store}>
     <ConnectedRouter history={props.history}>
       <div>
-        <Route exact path="/" component={Home}/>
-        <Route path="/drink-type" component={DrinkType}/>
-        <Route path="/drink-temperature" component={DrinkTemperature}/>
+        {props.routes.map((route, i) =>
+          route.routes.map((childRoute, j) => (
+            <route.layout key={childRoute.path} {...childRoute} />
+          ))
+        )}
       </div>
     </ConnectedRouter>
   </Provider>
