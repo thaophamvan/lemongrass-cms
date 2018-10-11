@@ -4,7 +4,7 @@ import {
   resetDrinkTemperatureData,
   updateDrinkTemperatureData,
   createDrinkTemperature
-} from '../../reducers/drinkTemperature'
+} from '../../actions/drinkTemperature'
 import DrinkTemperatureForm from '../../components/DrinkTemperatureForm'
 
 class DrinkTemperatureNewContainer extends React.Component {

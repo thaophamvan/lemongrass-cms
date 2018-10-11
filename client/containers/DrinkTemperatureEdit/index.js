@@ -5,7 +5,7 @@ import {
   fetchDrinkTemperatureItem,
   updateDrinkTemperatureData,
   updateDrinkTemperature
-} from '../../reducers/drinkTemperature'
+} from '../../actions/drinkTemperature'
 import DrinkTemperatureForm from '../../components/DrinkTemperatureForm'
 
 class DrinkTemperatureEditContainer extends React.Component {

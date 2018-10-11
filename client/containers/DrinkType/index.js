@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   fetchDrinkTypeData,
   deleteDrinkType
-} from '../../reducers/drinkType'
+} from '../../actions/drinkType'
 import DrinkType from '../../components/DrinkType'
 
 class DrinkTypeContainer extends React.Component {

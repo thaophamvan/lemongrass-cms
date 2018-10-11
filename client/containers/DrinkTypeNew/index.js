@@ -4,7 +4,7 @@ import {
   resetDrinkTypeData,
   updateDrinkTypeData,
   createDrinkType
-} from '../../reducers/drinkType'
+} from '../../actions/drinkType'
 import DrinkTypeForm from '../../components/DrinkTypeForm'
 
 class DrinkTypeNewContainer extends React.Component {

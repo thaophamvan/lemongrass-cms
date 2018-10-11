@@ -1,1 +1,6 @@
-// todo
+// Constants
+export const UPDATE_DRINK_TYPE_DATA = 'drink-type/UPDATE_DRINK_TYPE_DATA'
+export const RESET_DRINK_TYPE_DATA  = 'drink-type/RESET_DRINK_TYPE_DATA'
+
+export const UPDATE_DRINK_TEMPERATURE_DATA = 'drink-temperature/UPDATE_DRINK_TEMPERATURE_DATA'
+export const RESET_DRINK_TEMPERATURE_DATA  = 'drink-temperature/RESET_DRINK_TEMPERATURE_DATA'

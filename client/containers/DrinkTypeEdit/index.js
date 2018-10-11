@@ -5,7 +5,7 @@ import {
   fetchDrinkTypeItem,
   updateDrinkTypeData,
   updateDrinkType
-} from '../../reducers/drinkType'
+} from '../../actions/drinkType'
 import DrinkTypeForm from '../../components/DrinkTypeForm'
 
 class DrinkTypeEditContainer extends React.Component {
