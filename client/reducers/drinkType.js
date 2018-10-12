@@ -24,7 +24,16 @@ const initialState = {
   description: '',
   height: '',
   diameter: '',
-  volume: ''
+  volume: '',
+  fields: [
+    'name',
+    'type',
+    'description',
+    'height',
+    'diameter',
+    'volume'
+  ],
+  edit: false
 }
 
 export default (state = initialState, action) => {

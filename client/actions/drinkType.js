@@ -35,7 +35,8 @@ export const createDrinkType = () => {
   return async (dispatch, getState) => {
     let state = getState()
     let drinkType = state.drinkType
-    let {data, ...newData} = drinkType
+    let {name, type, description, height, diameter, volume} = drinkType
+    let newData = {name, type, description, height, diameter, volume}
 
     let response = await api.createDrinkType(newData)
 
@@ -47,7 +48,8 @@ export const updateDrinkType = () => {
   return async (dispatch, getState) => {
     let state = getState()
     let drinkType = state.drinkType
-    let {data, ...newData} = drinkType
+    let {id, _rev, name, type, description, height, diameter, volume} = drinkType
+    let newData = {id, _rev, name, type, description, height, diameter, volume}
 
     let response = await api.updateDrinkType(newData)
 

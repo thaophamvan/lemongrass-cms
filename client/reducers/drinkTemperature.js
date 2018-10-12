@@ -21,7 +21,13 @@ const initialState = {
   _rev: '',
   name: '',
   description: '',
-  desired_temperature: ''
+  desired_temperature: '',
+  fields: [
+    'name',
+    'description',
+    'desired_temperature'
+  ],
+  edit: false
 }
 
 export default (state = initialState, action) => {

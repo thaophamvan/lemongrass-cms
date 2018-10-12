@@ -35,7 +35,8 @@ export const createDrinkTemperature = () => {
   return async (dispatch, getState) => {
     let state = getState()
     let drinkTemperature = state.drinkTemperature
-    let {data, ...newData} = drinkTemperature
+    let {name, description, desired_temperature} = drinkTemperature
+    let newData = {name, description, desired_temperature}
 
     let response = await api.createDrinkTemperature(newData)
 
@@ -47,7 +48,8 @@ export const updateDrinkTemperature = () => {
   return async (dispatch, getState) => {
     let state = getState()
     let drinkTemperature = state.drinkTemperature
-    let {data, ...newData} = drinkTemperature
+    let {id, _rev, name, description, desired_temperature} = drinkTemperature
+    let newData = {id, _rev, name, description, desired_temperature}
 
     let response = await api.updateDrinkTemperature(newData)
 

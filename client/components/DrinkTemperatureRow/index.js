@@ -15,7 +15,7 @@ const DrinkTemperatureRow = (props) => {
       <td className="align-middle">{props.description}</td>
       <td className="align-middle">{props.desired_temperature}</td>
       <td>
-        <Link to={`/drink-temperature/${props.id}/edit`} className="btn btn-secondary btn-sm mr-2">Edit</Link>
+        <Link to={`/drink-temperature/${props.id}/edit`} className="btn btn-secondary btn-sm mr-2">View</Link>
         <button className="btn btn-danger btn-sm m-0" onClick={deleteRow}>Delete</button>
       </td>
     </tr>
