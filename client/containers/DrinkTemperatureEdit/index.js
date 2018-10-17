@@ -5,8 +5,8 @@ import {
   fetchDrinkTemperatureItem,
   updateDrinkTemperatureData,
   updateDrinkTemperature
-} from '../../reducers/drinkTemperature'
-import DrinkTemperatureForm from '../../components/DrinkTemperatureForm'
+} from '../../actions/drinkTemperature'
+import DrinkForm from '../../components/DrinkForm'
 
 class DrinkTemperatureEditContainer extends React.Component {
   componentDidMount() {
@@ -16,11 +16,13 @@ class DrinkTemperatureEditContainer extends React.Component {
 
   render() {
     return (
-      <DrinkTemperatureForm
+      <DrinkForm
         {...this.props}
         title={`Edit ${this.props.name}`}
+        fields={this.props.fields}
         updateData={this.props.updateDrinkTemperatureData}
         submitData={this.props.updateDrinkTemperature}
+        edit={this.props.edit}
       />
     )
   }
@@ -30,6 +32,8 @@ const mapStateToProps = state => ({
   name: state.drinkTemperature.name,
   description: state.drinkTemperature.description,
   desired_temperature: state.drinkTemperature.desired_temperature,
+  fields: state.drinkTemperature.fields,
+  edit: state.drinkTemperature.edit
 })
 
 const mapDispatchToProps = {

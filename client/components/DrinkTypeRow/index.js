@@ -18,7 +18,7 @@ const DrinkTypeRow = (props) => {
       <td className="align-middle">{props.diameter}</td>
       <td className="align-middle">{props.volume}</td>
       <td>
-        <Link to={`/drink-type/${props.id}/edit`} className="btn btn-secondary btn-sm mr-2">Edit</Link>
+        <Link to={`/drink-type/${props.id}/edit`} className="btn btn-secondary btn-sm mr-2">View</Link>
         <button className="btn btn-danger btn-sm m-0" onClick={deleteRow}>Delete</button>
       </td>
     </tr>
